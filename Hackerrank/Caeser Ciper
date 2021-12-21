@@ -1,0 +1,45 @@
+char* caesarCipher(char* s, int k) {
+    int n = 26;
+    char alph [n], alphcpy[n];
+    char cap_alph[n], cap_alphcpy[n];
+    // get the alphabets
+    int i;
+    
+    if(k>=26) k%=26; //round the rotation number when it is greater or 26
+    
+    for(i=0; i<n; i++ )
+    {
+        alph[i] =i+97; // ascii char 97 -- to 112
+        cap_alph[i] = i+65; // capital letters
+        alphcpy[i] = alph[i];
+        cap_alphcpy[i] = cap_alph[i];
+    }
+    
+    //rotate the alph
+    for(int i = k; i < (n+k); i++)
+    {
+        if(i >=n)
+        {
+            alph[i-k] = alphcpy[i-n];
+            cap_alph[i-k] = cap_alphcpy[i-n];
+        }
+
+        else 
+        {
+            alph[i-k]  =  alphcpy[i];
+            cap_alph[i-k] = cap_alphcpy[i];
+        }
+
+    }
+    
+    int len = strlen(s); // get the string length
+    
+    for(i = 0; i< len ; i++)
+    {
+        if(s[i] >= 97 && s[i] <= 122) s[i] = alph[s[i] - 97];
+        
+        if(s[i] >=65 && s[i] <=90) s[i] = cap_alph[s[i] - 65];
+    }
+    
+    return s;
+}
